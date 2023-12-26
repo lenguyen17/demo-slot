@@ -1,17 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SlotCommonComponent>
+      <!-- Use v-slot to specify data for the "header" slot -->
+      <template v-slot:header>
+        <div>{{ someObject.name }}</div>
+      </template>
+
+      <!-- Use v-slot to specify data for the default slot -->
+      <template v-slot>
+        <div>
+          <div v-html="customHtml"></div>
+          <div>
+            <b>{{ someObject.value }}</b>
+          </div>
+        </div>
+      </template>
+
+      <!-- Use v-slot to specify data for the "footer" slot -->
+      <template v-slot:footer>
+        <div>{{ someObject.footer }}</div>
+      </template>
+    </SlotCommonComponent>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SlotCommonComponent from './components/SlotCommonComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SlotCommonComponent
+  },
+  data() {
+    return {
+      customHtml: "<p>MERRY CHRISTMAS<p>",
+      someObject: {
+        name: "Quote",
+        value: "To the person reading this, Good Luck! Don't stress, everything will be fine. No matter what difficulty you are facing right now, you can overcome it! You are strong and brave",
+        footer: "This text was created at 1AM"
+      },
+    }
   }
 }
 </script>
